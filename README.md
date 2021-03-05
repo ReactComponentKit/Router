@@ -2,6 +2,10 @@
 
 Router for SwiftUI 🚀 Router uses UINavigationController behind scene so Router can be used only for iOS.😄
 
+## Example([Go to Code](https://github.com/ReactComponentKit/RouterExample))
+
+<center><img src='https://github.com/ReactComponentKit/RouterExample/blob/main/example.gif?raw=true'></center>
+
 ## RouterRootView
 
 You can define Router start position by using RouterRootView. If you call popToRoot(), you can back to the start position.
