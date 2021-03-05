@@ -67,7 +67,7 @@ public struct RouterPresentationModeKey: EnvironmentKey {
 
 extension EnvironmentValues {
     // support @Environment(\.routerPresentationMode) var presentationMode
-    var routerPresentationMode: RouterPresentationModeValue {
+    public var routerPresentationMode: RouterPresentationModeValue {
         get { self[RouterPresentationModeKey.self] }
         set { self[RouterPresentationModeKey.self] = newValue }
     }
