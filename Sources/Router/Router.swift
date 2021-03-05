@@ -157,7 +157,7 @@ public class Router: ObservableObject {
     
     // private route method for supporting binding data and injection environment varianbles and environment objects
     // You should use builder method to passing binding data and environment things
-    private func route<V: View>(_ path: String, _ mode: RouterPresentationMode, animated: Bool = true, bindings: RouterPathBindingData, injection: (AnyView) -> V) {
+    private func route_with_injection<V: View>(_ path: String, _ mode: RouterPresentationMode, animated: Bool = true, bindings: RouterPathBindingData, injection: (AnyView) -> V) {
         guard let routerPath = RouterPathManager.shared.routerPath(forPath: path) else { return }
         var params: [String: String] = [:]
         if let queryItems = URLComponents(string: path)?.queryItems {
@@ -183,7 +183,40 @@ public class Router: ObservableObject {
         case .fullscreen:
             fullscreen(finalView, animated: animated)
         case .overFullscreen:
-            overFullscreen(view, animated: animated)
+            overFullscreen(finalView, animated: animated)
+        case .replace:
+            replace(finalView, animted: animated)
+        case .none:
+            break
+        }
+    }
+    
+    private func route_without_injection(_ path: String, _ mode: RouterPresentationMode, animated: Bool = true, bindings: RouterPathBindingData) {
+        guard let routerPath = RouterPathManager.shared.routerPath(forPath: path) else { return }
+        var params: [String: String] = [:]
+        if let queryItems = URLComponents(string: path)?.queryItems {
+            var result: [String: String] = [:]
+            queryItems.forEach {
+                if let value = $0.value {
+                    result[$0.name] = value
+                }
+            }
+            params = result
+        }
+        
+        // path의 쿼리를 파싱하여 인자를 인젝션해 주어야 한다.
+        var data = RouterPathData(params: params)
+        data.bindings = bindings
+        let finalView = routerPath.view(data)
+        switch mode {
+        case .push:
+            push(finalView, animated: animated)
+        case .sheet:
+            sheet(finalView, animated: animated)
+        case .fullscreen:
+            fullscreen(finalView, animated: animated)
+        case .overFullscreen:
+            overFullscreen(finalView, animated: animated)
         case .replace:
             replace(finalView, animted: animated)
         case .none:
@@ -235,8 +268,12 @@ public class Router: ObservableObject {
             return self
         }
         
+        public func go() {
+            router?.route_without_injection(self.path, self.mode, animated: self.animated, bindings: RouterPathBindingData(bindings: self.bindings))
+        }
+        
         public func go<V: View>(with injection: (AnyView) -> V = { $0 as! V  }) {
-            router?.route(self.path, self.mode, animated: self.animated, bindings: RouterPathBindingData(bindings: self.bindings), injection: injection)
+            router?.route_with_injection(self.path, self.mode, animated: self.animated, bindings: RouterPathBindingData(bindings: self.bindings), injection: injection)
         }
     }
 }

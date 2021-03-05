@@ -10,7 +10,7 @@ import Foundation
 @dynamicMemberLookup
 public struct RouterPathData {
     private var params: [String: String]
-    var bindings: RouterPathBindingData = RouterPathBindingData()
+    public var bindings: RouterPathBindingData = RouterPathBindingData()
     
     // Path Data is Optional
     public subscript<T>(dynamicMember member: String) -> T? {
