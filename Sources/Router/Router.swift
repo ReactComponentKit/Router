@@ -211,31 +211,31 @@ public class Router: ObservableObject {
         private var animated: Bool = true
         private var bindings: [String: Any] = [:]
 
-        init(router: Router) {
+        internal init(router: Router) {
             self.router = router
         }
         
-        func route(_ path: String) -> Self {
+        public func route(_ path: String) -> Self {
             self.path = path
             return self
         }
         
-        func presentation(mode: RouterPresentationMode) -> Self {
+        public func presentation(mode: RouterPresentationMode) -> Self {
             self.mode = mode
             return self
         }
         
-        func animated(_ animated: Bool) -> Self {
+        public func animated(_ animated: Bool) -> Self {
             self.animated = animated
             return self
         }
         
-        func binding<T>(name: String,  _ value: Binding<T>) -> Self {
+        public func binding<T>(name: String,  _ value: Binding<T>) -> Self {
             bindings[name] = value
             return self
         }
         
-        func go<V: View>(with injection: (AnyView) -> V = { $0 as! V  }) {
+        public func go<V: View>(with injection: (AnyView) -> V = { $0 as! V  }) {
             router?.route(self.path, self.mode, animated: self.animated, bindings: RouterPathBindingData(bindings: self.bindings), injection: injection)
         }
     }
