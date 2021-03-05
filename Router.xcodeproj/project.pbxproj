@@ -60,12 +60,12 @@
 			path = RouterPath;
 			sourceTree = "<group>";
 		};
-		OBJ_18 /* Vieews */ = {
+		OBJ_18 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				OBJ_19 /* RouterRootView.swift */,
 			);
-			path = Vieews;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		OBJ_20 /* Tests */ = {
@@ -109,7 +109,7 @@
 				OBJ_9 /* Extensions */,
 				OBJ_11 /* PresentationMode */,
 				OBJ_14 /* RouterPath */,
-				OBJ_18 /* Vieews */,
+				OBJ_18 /* Views */,
 				OBJ_13 /* Router.swift */,
 			);
 			name = Router;
