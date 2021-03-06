@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4EAD53BF25F3A07200C7DEDB /* SwitchCaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD53BE25F3A07200C7DEDB /* SwitchCaseView.swift */; };
+		4EAD53C325F3A09F00C7DEDB /* IfLetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD53C225F3A09F00C7DEDB /* IfLetView.swift */; };
 		OBJ_30 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* ViewExtensions.swift */; };
 		OBJ_31 /* RouterPresentationMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* RouterPresentationMode.swift */; };
 		OBJ_32 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* Router.swift */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4EAD53BE25F3A07200C7DEDB /* SwitchCaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchCaseView.swift; sourceTree = "<group>"; };
+		4EAD53C225F3A09F00C7DEDB /* IfLetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IfLetView.swift; sourceTree = "<group>"; };
 		OBJ_10 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		OBJ_12 /* RouterPresentationMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterPresentationMode.swift; sourceTree = "<group>"; };
 		OBJ_13 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
@@ -64,6 +68,8 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_19 /* RouterRootView.swift */,
+				4EAD53BE25F3A07200C7DEDB /* SwitchCaseView.swift */,
+				4EAD53C225F3A09F00C7DEDB /* IfLetView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -189,9 +195,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
+				4EAD53BF25F3A07200C7DEDB /* SwitchCaseView.swift in Sources */,
 				OBJ_30 /* ViewExtensions.swift in Sources */,
 				OBJ_31 /* RouterPresentationMode.swift in Sources */,
 				OBJ_32 /* Router.swift in Sources */,
+				4EAD53C325F3A09F00C7DEDB /* IfLetView.swift in Sources */,
 				OBJ_33 /* RouterPath.swift in Sources */,
 				OBJ_34 /* RouterPathBindingData.swift in Sources */,
 				OBJ_35 /* RouterPathData.swift in Sources */,
