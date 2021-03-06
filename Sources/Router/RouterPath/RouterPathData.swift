@@ -13,8 +13,8 @@ public struct RouterPathData {
     public var bindings: RouterPathBindingData = RouterPathBindingData()
     
     // Path Data is Optional
-    public subscript<T>(dynamicMember member: String) -> T? {
-        return params[member] as? T
+    public subscript(dynamicMember member: String) -> String? {
+        return params[member]
     }
     
     internal init(params: [String: String] = [:]) {

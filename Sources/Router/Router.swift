@@ -263,7 +263,7 @@ public class Router: ObservableObject {
             return self
         }
         
-        public func binding<T>(name: String,  _ value: Binding<T>) -> Self {
+        public func binding<T>(name: String,  to value: Binding<T>) -> Self {
             bindings[name] = value
             return self
         }
