@@ -45,7 +45,7 @@ var body: some Scene {
             }
         }
         .path("myscheme://someview") { data in
-            SomeView(number: data.i ?? 0, message: data.s ?? "")
+            SomeView(number: data.i.flatMap { Int($0) } ?? 0, message: data.s ?? "")
         }
         .path("myscheme://detail") { _ in 
             DetailView()
@@ -101,7 +101,7 @@ var body: some Scene {
             }
         }
         .path("myscheme://detail") { data in 
-            DetailView(a: data.a ?? 0, b: data.b ?? "", test: data.bindings.test)
+            DetailView(a: data.a.flatMap { Int($0) } ?? 0, b: data.b ?? "", test: data.bindings.test)
         }
     }
 }
