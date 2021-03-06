@@ -189,6 +189,97 @@ struct DetailView: View {
 }
 ```
 
+## SwitchCaseView and IfLetView
+
+For choosing view by variable value or optional value, Router provides SwitchCaseView and IfLetView. You can use them like below:
+
+```swift
+@main
+struct RouterExampleApp: App {
+    
+    @Default(.isFirstLaunch)
+    var isFirstLaunch
+    
+    var body: some Scene {
+        WindowGroup {
+            RouterRootView { router in
+                Switch(isFirstLaunch)
+                    .Case(true) { _ in
+                        OnboardingView()
+                    }
+                    .Case(false) { _ in
+                        ContentView()
+                    }
+                    .Else {
+                        EmptyView()
+                    }
+            }
+        }
+    }
+}
+```
+
+Or
+
+```swift
+var body: some Scene {
+        WindowGroup {
+            RouterRootView { router in
+                Switch(isFirstLaunch)
+                    .Case(true) { _ in
+                        OnboardingView()
+                    }
+                    .Case(false) { _ in
+                        ContentView()
+                    }
+                    .Else {
+                        EmptyView()
+                    }
+            }
+            .path("myapp://color") { data in
+                Switch<String>(data.color)
+                    .Case("red") { color in
+                        ColorView(color:  MyColor.from(string: color))
+                            .navigationBarHidden(true)
+                    }
+                    .Case("green") { color in
+                        ColorView(color:  MyColor.from(string: color))
+                            .navigationBarHidden(true)
+                    }
+                    .Else {
+                        Text("OMG")
+                    }
+            }
+        }
+}
+```
+
+Or
+
+```swift
+var body: some Scene {
+        WindowGroup {
+            RouterRootView { router in
+                Switch(isFirstLaunch)
+                    .Case(true) { _ in
+                        OnboardingView()
+                    }
+                    .Case(false) { _ in
+                        ContentView()
+                    }
+                    .Else {
+                        EmptyView()
+                    }
+            }
+            .path("myapp://color") { data in
+                If<String>(data.color).Let { color in
+                    ColorView(color:  MyColor.from(string: color))
+                        .navigationBarHidden(true)
+                }
+            }
+        }
+}
+```
 
 ## Integration
 
