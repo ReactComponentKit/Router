@@ -237,7 +237,7 @@ var body: some Scene {
                     }
             }
             .path("myapp://color") { data in
-                Switch<String>(data.color)
+                Switch(data.color)
                     .Case("red") { color in
                         ColorView(color:  MyColor.from(string: color))
                             .navigationBarHidden(true)
@@ -272,7 +272,7 @@ var body: some Scene {
                     }
             }
             .path("myapp://color") { data in
-                If<String>(data.color).Let { color in
+                If(data.color).Let { color in
                     ColorView(color:  MyColor.from(string: color))
                         .navigationBarHidden(true)
                 }
