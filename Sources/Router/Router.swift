@@ -361,11 +361,11 @@ public class Router: ObservableObject {
         }
         
         public func go() {
-            router?.route_without_injection(self.path, self.mode, animated: self.animated, bindings: RouterPathBindingData(bindings: self.bindings))
+            router?.route_without_injection(self.path, self.mode, animated: self.animated, transitionStyle: self.transitionStyle, bindings: RouterPathBindingData(bindings: self.bindings))
         }
         
         public func go<V: View>(with injection: (AnyView) -> V = { $0 as! V  }) {
-            router?.route_with_injection(self.path, self.mode, animated: self.animated, bindings: RouterPathBindingData(bindings: self.bindings), injection: injection)
+            router?.route_with_injection(self.path, self.mode, animated: self.animated, transitionStyle: self.transitionStyle, bindings: RouterPathBindingData(bindings: self.bindings), injection: injection)
         }
     }
 }
