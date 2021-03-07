@@ -158,6 +158,18 @@ public class Router: ObservableObject {
         self.navigationController.present(vc, animated: animated, completion: nil)
     }
     
+    public func popover<V: View>(_ view: V, animated: Bool = true) {
+        let vc = makeViewController(view: view, mode: .popover)
+        vc.modalPresentationStyle = UIModalPresentationStyle.popover
+        self.navigationController.present(vc, animated: animated, completion: nil)
+    }
+    
+    public func popover<V: View>(animated: Bool = true, @ViewBuilder content: @escaping () -> V) {
+        let vc = makeViewController(view: content(), mode: .popover)
+        vc.modalPresentationStyle = UIModalPresentationStyle.popover
+        self.navigationController.present(vc, animated: animated, completion: nil)
+    }
+    
     // route to the view with some data(optional)
     public func route(_ path: String, _ mode: RouterPresentationMode, animated: Bool = true) {
         guard let routerPath = RouterPathManager.shared.routerPath(forPath: path) else { return }
@@ -192,6 +204,8 @@ public class Router: ObservableObject {
             currentContext(view, animated: animated)
         case .overCurrentContext:
             overCurrentContext(view, animated: animated)
+        case .popover:
+            popover(view, animated: animated)
         case .none:
             break
         }
@@ -234,6 +248,8 @@ public class Router: ObservableObject {
             currentContext(finalView, animated: animated)
         case .overCurrentContext:
             overCurrentContext(finalView, animated: animated)
+        case .popover:
+            popover(finalView, animated: animated)
         case .none:
             break
         }
@@ -273,6 +289,8 @@ public class Router: ObservableObject {
             currentContext(finalView, animated: animated)
         case .overCurrentContext:
             overCurrentContext(finalView, animated: animated)
+        case .popover:
+            popover(finalView, animated: animated)
         case .none:
             break
         }
