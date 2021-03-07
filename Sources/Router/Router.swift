@@ -121,6 +121,42 @@ public class Router: ObservableObject {
         let vc = makeViewController(view: content(), mode: .replace)
         self.navigationController.setViewControllers([vc], animated: animted)
     }
+
+    public func formSheet<V: View>(_ view: V, animated: Bool = true) {
+        let vc = makeViewController(view: view, mode: .formSheet)
+        vc.modalPresentationStyle = UIModalPresentationStyle.formSheet
+        self.navigationController.present(vc, animated: animated, completion: nil)
+    }
+    
+    public func formSheet<V: View>(animated: Bool = true, @ViewBuilder content: @escaping () -> V) {
+        let vc = makeViewController(view: content(), mode: .formSheet)
+        vc.modalPresentationStyle = UIModalPresentationStyle.formSheet
+        self.navigationController.present(vc, animated: animated, completion: nil)
+    }
+    
+    public func currentContext<V: View>(_ view: V, animated: Bool = true) {
+        let vc = makeViewController(view: view, mode: .currentContext)
+        vc.modalPresentationStyle = UIModalPresentationStyle.currentContext
+        self.navigationController.present(vc, animated: animated, completion: nil)
+    }
+    
+    public func currentContext<V: View>(animated: Bool = true, @ViewBuilder content: @escaping () -> V) {
+        let vc = makeViewController(view: content(), mode: .currentContext)
+        vc.modalPresentationStyle = UIModalPresentationStyle.currentContext
+        self.navigationController.present(vc, animated: animated, completion: nil)
+    }
+    
+    public func overCurrentContext<V: View>(_ view: V, animated: Bool = true) {
+        let vc = makeViewController(view: view, mode: .overCurrentContext)
+        vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        self.navigationController.present(vc, animated: animated, completion: nil)
+    }
+    
+    public func overCurrentContext<V: View>(animated: Bool = true, @ViewBuilder content: @escaping () -> V) {
+        let vc = makeViewController(view: content(), mode: .overCurrentContext)
+        vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        self.navigationController.present(vc, animated: animated, completion: nil)
+    }
     
     // route to the view with some data(optional)
     public func route(_ path: String, _ mode: RouterPresentationMode, animated: Bool = true) {
@@ -150,6 +186,12 @@ public class Router: ObservableObject {
             overFullscreen(view, animated: animated)
         case .replace:
             replace(view, animted: animated)
+        case .formSheet:
+            formSheet(view, animated: animated)
+        case .currentContext:
+            currentContext(view, animated: animated)
+        case .overCurrentContext:
+            overCurrentContext(view, animated: animated)
         case .none:
             break
         }
@@ -186,6 +228,12 @@ public class Router: ObservableObject {
             overFullscreen(finalView, animated: animated)
         case .replace:
             replace(finalView, animted: animated)
+        case .formSheet:
+            formSheet(finalView, animated: animated)
+        case .currentContext:
+            currentContext(finalView, animated: animated)
+        case .overCurrentContext:
+            overCurrentContext(finalView, animated: animated)
         case .none:
             break
         }
@@ -219,6 +267,12 @@ public class Router: ObservableObject {
             overFullscreen(finalView, animated: animated)
         case .replace:
             replace(finalView, animted: animated)
+        case .formSheet:
+            formSheet(finalView, animated: animated)
+        case .currentContext:
+            currentContext(finalView, animated: animated)
+        case .overCurrentContext:
+            overCurrentContext(finalView, animated: animated)
         case .none:
             break
         }

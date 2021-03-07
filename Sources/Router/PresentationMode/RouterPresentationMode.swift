@@ -15,6 +15,9 @@ public enum RouterPresentationMode {
     case fullscreen
     case overFullscreen
     case replace
+    case formSheet
+    case currentContext
+    case overCurrentContext
 }
 
 public class RouterPresentationModeValue {
@@ -22,11 +25,7 @@ public class RouterPresentationModeValue {
     internal var mode: RouterPresentationMode    
     public var isPresented: Bool {
         switch mode {
-        case .sheet:
-            return wrappedValue?.presentingViewController != nil
-        case .fullscreen:
-            return wrappedValue?.presentingViewController != nil
-        case .overFullscreen:
+        case .sheet, .fullscreen, .overFullscreen, .formSheet, .currentContext, .overCurrentContext:
             return wrappedValue?.presentingViewController != nil
         case .push:
             return wrappedValue?.navigationController?.viewControllers.last == wrappedValue
@@ -43,11 +42,7 @@ public class RouterPresentationModeValue {
     
     public func dismiss(animated: Bool = true) {
         switch mode {
-        case .sheet:
-            wrappedValue?.dismiss(animated: animated, completion: nil)
-        case .fullscreen:
-            wrappedValue?.dismiss(animated: animated, completion: nil)
-        case .overFullscreen:
+        case .sheet, .fullscreen, .overFullscreen, .formSheet, .currentContext, .overCurrentContext:
             wrappedValue?.dismiss(animated: animated, completion: nil)
         case .push:
             wrappedValue?.navigationController?.popViewController(animated: animated)
