@@ -78,40 +78,6 @@ public class Router: ObservableObject {
         self.navigationController.popViewController(animated: animated)
     }
     
-    public func sheet<V: View>(_ view: V, animated: Bool = true) {
-        let vc = makeViewController(view: view, mode: .sheet)
-        self.navigationController.present(vc, animated: animated, completion: nil)
-    }
-    
-    public func sheet<V: View>(animated: Bool = true, @ViewBuilder content: @escaping () -> V) {
-        let vc = makeViewController(view: content(), mode: .sheet)
-        self.navigationController.present(vc, animated: animated, completion: nil)
-    }
-    
-    public func fullscreen<V: View>(_ view: V, animated: Bool = true) {
-        let vc = makeViewController(view: view, mode: .fullscreen)
-        vc.modalPresentationStyle = UIModalPresentationStyle.fullScreen
-        self.navigationController.present(vc, animated: animated, completion: nil)
-    }
-    
-    public func fullscreen<V: View>(animated: Bool = true, @ViewBuilder content: @escaping () -> V) {
-        let vc = makeViewController(view: content(), mode: .fullscreen)
-        vc.modalPresentationStyle = UIModalPresentationStyle.fullScreen
-        self.navigationController.present(vc, animated: animated, completion: nil)
-    }
-    
-    public func overFullscreen<V: View>(_ view: V, animated: Bool = true) {
-        let vc = makeViewController(view: view, mode: .overFullscreen)
-        vc.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
-        self.navigationController.present(vc, animated: animated, completion: nil)
-    }
-    
-    public func overFullscreen<V: View>(animated: Bool = true, @ViewBuilder content: @escaping () -> V) {
-        let vc = makeViewController(view: content(), mode: .overFullscreen)
-        vc.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
-        self.navigationController.present(vc, animated: animated, completion: nil)
-    }
-    
     public func replace<V: View>(_ view: V, animted: Bool = false) {
         let vc = makeViewController(view: view, mode: .replace)
         self.navigationController.setViewControllers([vc], animated: animted)
@@ -121,39 +87,87 @@ public class Router: ObservableObject {
         let vc = makeViewController(view: content(), mode: .replace)
         self.navigationController.setViewControllers([vc], animated: animted)
     }
-
-    public func formSheet<V: View>(_ view: V, animated: Bool = true) {
+    
+    public func sheet<V: View>(_ view: V, animated: Bool = true, transitionStyle: UIModalTransitionStyle = .coverVertical) {
+        let vc = makeViewController(view: view, mode: .sheet)
+        vc.modalTransitionStyle = transitionStyle
+        vc.modalPresentationStyle = UIModalPresentationStyle.pageSheet
+        self.navigationController.present(vc, animated: animated, completion: nil)
+    }
+    
+    public func sheet<V: View>(animated: Bool = true, transitionStyle: UIModalTransitionStyle = .coverVertical, @ViewBuilder content: @escaping () -> V) {
+        let vc = makeViewController(view: content(), mode: .sheet)
+        vc.modalTransitionStyle = transitionStyle
+        vc.modalPresentationStyle = UIModalPresentationStyle.pageSheet
+        self.navigationController.present(vc, animated: animated, completion: nil)
+    }
+    
+    public func fullscreen<V: View>(_ view: V, animated: Bool = true, transitionStyle: UIModalTransitionStyle = .coverVertical) {
+        let vc = makeViewController(view: view, mode: .fullscreen)
+        vc.modalTransitionStyle = transitionStyle
+        vc.modalPresentationStyle = UIModalPresentationStyle.fullScreen
+        self.navigationController.present(vc, animated: animated, completion: nil)
+    }
+    
+    public func fullscreen<V: View>(animated: Bool = true, transitionStyle: UIModalTransitionStyle = .coverVertical, @ViewBuilder content: @escaping () -> V) {
+        let vc = makeViewController(view: content(), mode: .fullscreen)
+        vc.modalTransitionStyle = transitionStyle
+        vc.modalPresentationStyle = UIModalPresentationStyle.fullScreen
+        self.navigationController.present(vc, animated: animated, completion: nil)
+    }
+    
+    public func overFullscreen<V: View>(_ view: V, animated: Bool = true, transitionStyle: UIModalTransitionStyle = .coverVertical) {
+        let vc = makeViewController(view: view, mode: .overFullscreen)
+        vc.modalTransitionStyle = transitionStyle
+        vc.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
+        self.navigationController.present(vc, animated: animated, completion: nil)
+    }
+    
+    public func overFullscreen<V: View>(animated: Bool = true, transitionStyle: UIModalTransitionStyle = .coverVertical, @ViewBuilder content: @escaping () -> V) {
+        let vc = makeViewController(view: content(), mode: .overFullscreen)
+        vc.modalTransitionStyle = transitionStyle
+        vc.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
+        self.navigationController.present(vc, animated: animated, completion: nil)
+    }
+    
+    public func formSheet<V: View>(_ view: V, animated: Bool = true, transitionStyle: UIModalTransitionStyle = .coverVertical) {
         let vc = makeViewController(view: view, mode: .formSheet)
+        vc.modalTransitionStyle = transitionStyle
         vc.modalPresentationStyle = UIModalPresentationStyle.formSheet
         self.navigationController.present(vc, animated: animated, completion: nil)
     }
     
-    public func formSheet<V: View>(animated: Bool = true, @ViewBuilder content: @escaping () -> V) {
+    public func formSheet<V: View>(animated: Bool = true, transitionStyle: UIModalTransitionStyle = .coverVertical, @ViewBuilder content: @escaping () -> V) {
         let vc = makeViewController(view: content(), mode: .formSheet)
+        vc.modalTransitionStyle = transitionStyle
         vc.modalPresentationStyle = UIModalPresentationStyle.formSheet
         self.navigationController.present(vc, animated: animated, completion: nil)
     }
     
-    public func currentContext<V: View>(_ view: V, animated: Bool = true) {
+    public func currentContext<V: View>(_ view: V, animated: Bool = true, transitionStyle: UIModalTransitionStyle = .coverVertical) {
         let vc = makeViewController(view: view, mode: .currentContext)
+        vc.modalTransitionStyle = transitionStyle
         vc.modalPresentationStyle = UIModalPresentationStyle.currentContext
         self.navigationController.present(vc, animated: animated, completion: nil)
     }
     
-    public func currentContext<V: View>(animated: Bool = true, @ViewBuilder content: @escaping () -> V) {
+    public func currentContext<V: View>(animated: Bool = true, transitionStyle: UIModalTransitionStyle = .coverVertical, @ViewBuilder content: @escaping () -> V) {
         let vc = makeViewController(view: content(), mode: .currentContext)
+        vc.modalTransitionStyle = transitionStyle
         vc.modalPresentationStyle = UIModalPresentationStyle.currentContext
         self.navigationController.present(vc, animated: animated, completion: nil)
     }
     
-    public func overCurrentContext<V: View>(_ view: V, animated: Bool = true) {
+    public func overCurrentContext<V: View>(_ view: V, animated: Bool = true, transitionStyle: UIModalTransitionStyle = .coverVertical) {
         let vc = makeViewController(view: view, mode: .overCurrentContext)
+        vc.modalTransitionStyle = transitionStyle
         vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         self.navigationController.present(vc, animated: animated, completion: nil)
     }
     
-    public func overCurrentContext<V: View>(animated: Bool = true, @ViewBuilder content: @escaping () -> V) {
+    public func overCurrentContext<V: View>(animated: Bool = true, transitionStyle: UIModalTransitionStyle = .coverVertical, @ViewBuilder content: @escaping () -> V) {
         let vc = makeViewController(view: content(), mode: .overCurrentContext)
+        vc.modalTransitionStyle = transitionStyle
         vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         self.navigationController.present(vc, animated: animated, completion: nil)
     }
@@ -171,7 +185,7 @@ public class Router: ObservableObject {
 //    }
     
     // route to the view with some data(optional)
-    public func route(_ path: String, _ mode: RouterPresentationMode, animated: Bool = true) {
+    public func route(_ path: String, _ mode: RouterPresentationMode, animated: Bool = true, transitionStyle: UIModalTransitionStyle = .coverVertical) {
         guard let routerPath = RouterPathManager.shared.routerPath(forPath: path) else { return }
         
         // parsing path's query into router path data
@@ -191,19 +205,19 @@ public class Router: ObservableObject {
         case .push:
             push(view, animated: animated)
         case .sheet:
-            sheet(view, animated: animated)
+            sheet(view, animated: animated, transitionStyle: transitionStyle)
         case .fullscreen:
-            fullscreen(view, animated: animated)
+            fullscreen(view, animated: animated, transitionStyle: transitionStyle)
         case .overFullscreen:
-            overFullscreen(view, animated: animated)
+            overFullscreen(view, animated: animated, transitionStyle: transitionStyle)
         case .replace:
             replace(view, animted: animated)
         case .formSheet:
-            formSheet(view, animated: animated)
+            formSheet(view, animated: animated, transitionStyle: transitionStyle)
         case .currentContext:
-            currentContext(view, animated: animated)
+            currentContext(view, animated: animated, transitionStyle: transitionStyle)
         case .overCurrentContext:
-            overCurrentContext(view, animated: animated)
+            overCurrentContext(view, animated: animated, transitionStyle: transitionStyle)
 //        case .popover:
 //            popover(view, animated: animated)
         case .none:
@@ -213,7 +227,7 @@ public class Router: ObservableObject {
     
     // private route method for supporting binding data and injection environment varianbles and environment objects
     // You should use builder method to passing binding data and environment things
-    private func route_with_injection<V: View>(_ path: String, _ mode: RouterPresentationMode, animated: Bool = true, bindings: RouterPathBindingData, injection: (AnyView) -> V) {
+    private func route_with_injection<V: View>(_ path: String, _ mode: RouterPresentationMode, animated: Bool = true, transitionStyle: UIModalTransitionStyle = .coverVertical, bindings: RouterPathBindingData, injection: (AnyView) -> V) {
         guard let routerPath = RouterPathManager.shared.routerPath(forPath: path) else { return }
         var params: [String: String] = [:]
         if let queryItems = URLComponents(string: path)?.queryItems {
@@ -235,19 +249,19 @@ public class Router: ObservableObject {
         case .push:
             push(finalView, animated: animated)
         case .sheet:
-            sheet(finalView, animated: animated)
+            sheet(finalView, animated: animated, transitionStyle: transitionStyle)
         case .fullscreen:
-            fullscreen(finalView, animated: animated)
+            fullscreen(finalView, animated: animated, transitionStyle: transitionStyle)
         case .overFullscreen:
-            overFullscreen(finalView, animated: animated)
+            overFullscreen(finalView, animated: animated, transitionStyle: transitionStyle)
         case .replace:
             replace(finalView, animted: animated)
         case .formSheet:
-            formSheet(finalView, animated: animated)
+            formSheet(finalView, animated: animated, transitionStyle: transitionStyle)
         case .currentContext:
-            currentContext(finalView, animated: animated)
+            currentContext(finalView, animated: animated, transitionStyle: transitionStyle)
         case .overCurrentContext:
-            overCurrentContext(finalView, animated: animated)
+            overCurrentContext(finalView, animated: animated, transitionStyle: transitionStyle)
 //        case .popover:
 //            popover(finalView, animated: animated)
         case .none:
@@ -255,7 +269,7 @@ public class Router: ObservableObject {
         }
     }
     
-    private func route_without_injection(_ path: String, _ mode: RouterPresentationMode, animated: Bool = true, bindings: RouterPathBindingData) {
+    private func route_without_injection(_ path: String, _ mode: RouterPresentationMode, animated: Bool = true, transitionStyle: UIModalTransitionStyle = .coverVertical, bindings: RouterPathBindingData) {
         guard let routerPath = RouterPathManager.shared.routerPath(forPath: path) else { return }
         var params: [String: String] = [:]
         if let queryItems = URLComponents(string: path)?.queryItems {
@@ -276,19 +290,19 @@ public class Router: ObservableObject {
         case .push:
             push(finalView, animated: animated)
         case .sheet:
-            sheet(finalView, animated: animated)
+            sheet(finalView, animated: animated, transitionStyle: transitionStyle)
         case .fullscreen:
-            fullscreen(finalView, animated: animated)
+            fullscreen(finalView, animated: animated, transitionStyle: transitionStyle)
         case .overFullscreen:
-            overFullscreen(finalView, animated: animated)
+            overFullscreen(finalView, animated: animated, transitionStyle: transitionStyle)
         case .replace:
             replace(finalView, animted: animated)
         case .formSheet:
-            formSheet(finalView, animated: animated)
+            formSheet(finalView, animated: animated, transitionStyle: transitionStyle)
         case .currentContext:
-            currentContext(finalView, animated: animated)
+            currentContext(finalView, animated: animated, transitionStyle: transitionStyle)
         case .overCurrentContext:
-            overCurrentContext(finalView, animated: animated)
+            overCurrentContext(finalView, animated: animated, transitionStyle: transitionStyle)
 //        case .popover:
 //            popover(finalView, animated: animated)
         case .none:
@@ -314,6 +328,7 @@ public class Router: ObservableObject {
         private var path: String = ""
         private var mode: RouterPresentationMode = .none
         private var animated: Bool = true
+        private var transitionStyle: UIModalTransitionStyle = .coverVertical
         private var bindings: [String: Any] = [:]
 
         internal init(router: Router) {
@@ -332,6 +347,11 @@ public class Router: ObservableObject {
         
         public func animated(_ animated: Bool) -> Self {
             self.animated = animated
+            return self
+        }
+        
+        public func transition(style: UIModalTransitionStyle) -> Self {
+            self.transitionStyle = style
             return self
         }
         
