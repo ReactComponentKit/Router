@@ -18,7 +18,8 @@ public enum RouterPresentationMode {
     case formSheet
     case currentContext
     case overCurrentContext
-    case popover
+    // TODO suport popover delegate injection
+    // case popover
 }
 
 public class RouterPresentationModeValue {
@@ -43,7 +44,7 @@ public class RouterPresentationModeValue {
     
     public func dismiss(animated: Bool = true) {
         switch mode {
-        case .sheet, .fullscreen, .overFullscreen, .formSheet, .currentContext, .overCurrentContext, .popover:
+        case .sheet, .fullscreen, .overFullscreen, .formSheet, .currentContext, .overCurrentContext:
             wrappedValue?.dismiss(animated: animated, completion: nil)
         case .push:
             wrappedValue?.navigationController?.popViewController(animated: animated)
