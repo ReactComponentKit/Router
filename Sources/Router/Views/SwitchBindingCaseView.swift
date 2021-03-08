@@ -8,9 +8,9 @@
 import Foundation
 import SwiftUI
 
-internal class ViewContainer<Value: Equatable> {
+public class ViewContainer<Value: Equatable> {
     internal var views: [(UUID, (Value) -> AnyView)] = []
-    internal init() {
+    public init() {
         self.views = []
     }
     internal func append<V: View>(caseValue: Value, builder:  @escaping (Value) -> V) {
@@ -23,7 +23,7 @@ internal class ViewContainer<Value: Equatable> {
 public struct SwitchBinding<Value: Equatable>: View {
     @Binding
     public var value: Value
-    private var container = ViewContainer<Value>()
+    public var container = ViewContainer<Value>()
     public var body: some View {
         ForEach(container.views, id: \.self.0) { v in
             v.1(value)
