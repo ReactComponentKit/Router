@@ -227,7 +227,7 @@ public class Router: ObservableObject {
     
     // private route method for supporting binding data and injection environment varianbles and environment objects
     // You should use builder method to passing binding data and environment things
-    private func route_with_injection<V: View>(_ path: String, _ mode: RouterPresentationMode, animated: Bool = true, transitionStyle: UIModalTransitionStyle = .coverVertical, bindings: RouterPathBindingData, injection: (AnyView) -> V) {
+    private func route_with_injection<V: View>(_ path: String, _ mode: RouterPresentationMode, animated: Bool = true, transitionStyle: UIModalTransitionStyle = .coverVertical, bindings: RouterPathBindingData, userData: RouterPathUserData, injection: (AnyView) -> V) {
         guard let routerPath = RouterPathManager.shared.routerPath(forPath: path) else { return }
         var params: [String: String] = [:]
         if let queryItems = URLComponents(string: path)?.queryItems {
@@ -243,6 +243,7 @@ public class Router: ObservableObject {
         // path의 쿼리를 파싱하여 인자를 인젝션해 주어야 한다.
         var data = RouterPathData(params: params)
         data.bindings = bindings
+        data.userData = userData
         let view = routerPath.view(data)
         let finalView = injection(view)
         switch mode {
@@ -269,7 +270,7 @@ public class Router: ObservableObject {
         }
     }
     
-    private func route_without_injection(_ path: String, _ mode: RouterPresentationMode, animated: Bool = true, transitionStyle: UIModalTransitionStyle = .coverVertical, bindings: RouterPathBindingData) {
+    private func route_without_injection(_ path: String, _ mode: RouterPresentationMode, animated: Bool = true, transitionStyle: UIModalTransitionStyle = .coverVertical, bindings: RouterPathBindingData, userData: RouterPathUserData) {
         guard let routerPath = RouterPathManager.shared.routerPath(forPath: path) else { return }
         var params: [String: String] = [:]
         if let queryItems = URLComponents(string: path)?.queryItems {
@@ -285,6 +286,7 @@ public class Router: ObservableObject {
         // path의 쿼리를 파싱하여 인자를 인젝션해 주어야 한다.
         var data = RouterPathData(params: params)
         data.bindings = bindings
+        data.userData = userData
         let finalView = routerPath.view(data)
         switch mode {
         case .push:
@@ -330,7 +332,8 @@ public class Router: ObservableObject {
         private var animated: Bool = true
         private var transitionStyle: UIModalTransitionStyle = .coverVertical
         private var bindings: [String: Any] = [:]
-
+        private var userData: [String: Any] = [:]
+        
         internal init(router: Router) {
             self.router = router
         }
@@ -360,12 +363,17 @@ public class Router: ObservableObject {
             return self
         }
         
+        public func userData<T>(name: String, value: T) -> Self {
+            userData[name] = value
+            return self
+        }
+        
         public func go() {
-            router?.route_without_injection(self.path, self.mode, animated: self.animated, transitionStyle: self.transitionStyle, bindings: RouterPathBindingData(bindings: self.bindings))
+            router?.route_without_injection(self.path, self.mode, animated: self.animated, transitionStyle: self.transitionStyle, bindings: RouterPathBindingData(bindings: self.bindings), userData: RouterPathUserData(userData: self.userData))
         }
         
         public func go<V: View>(with injection: (AnyView) -> V = { $0 as! V  }) {
-            router?.route_with_injection(self.path, self.mode, animated: self.animated, transitionStyle: self.transitionStyle, bindings: RouterPathBindingData(bindings: self.bindings), injection: injection)
+            router?.route_with_injection(self.path, self.mode, animated: self.animated, transitionStyle: self.transitionStyle, bindings: RouterPathBindingData(bindings: self.bindings), userData: RouterPathUserData(userData: self.userData), injection: injection)
         }
     }
 }

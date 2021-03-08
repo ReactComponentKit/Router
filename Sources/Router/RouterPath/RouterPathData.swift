@@ -11,6 +11,7 @@ import Foundation
 public struct RouterPathData {
     private var params: [String: String]
     public var bindings: RouterPathBindingData = RouterPathBindingData()
+    public var userData: RouterPathUserData = RouterPathUserData()
     
     // Path Data is Optional
     public subscript(dynamicMember member: String) -> String? {

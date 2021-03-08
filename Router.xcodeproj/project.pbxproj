@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E95368225F61C6F00E91BE3 /* RouterPathUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E95368125F61C6F00E91BE3 /* RouterPathUserData.swift */; };
 		4EAD53BF25F3A07200C7DEDB /* SwitchCaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD53BE25F3A07200C7DEDB /* SwitchCaseView.swift */; };
 		4EAD53C325F3A09F00C7DEDB /* IfLetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD53C225F3A09F00C7DEDB /* IfLetView.swift */; };
 		OBJ_30 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* ViewExtensions.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4E95368125F61C6F00E91BE3 /* RouterPathUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterPathUserData.swift; sourceTree = "<group>"; };
 		4EAD53BE25F3A07200C7DEDB /* SwitchCaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchCaseView.swift; sourceTree = "<group>"; };
 		4EAD53C225F3A09F00C7DEDB /* IfLetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IfLetView.swift; sourceTree = "<group>"; };
 		OBJ_10 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_15 /* RouterPath.swift */,
+				4E95368125F61C6F00E91BE3 /* RouterPathUserData.swift */,
 				OBJ_16 /* RouterPathBindingData.swift */,
 				OBJ_17 /* RouterPathData.swift */,
 			);
@@ -203,6 +206,7 @@
 				OBJ_33 /* RouterPath.swift in Sources */,
 				OBJ_34 /* RouterPathBindingData.swift in Sources */,
 				OBJ_35 /* RouterPathData.swift in Sources */,
+				4E95368225F61C6F00E91BE3 /* RouterPathUserData.swift in Sources */,
 				OBJ_36 /* RouterRootView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
