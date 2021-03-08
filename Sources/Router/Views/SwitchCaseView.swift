@@ -7,26 +7,24 @@
 
 import SwiftUI
 
-public class Switch<Value: Equatable> {
+public struct Switch<Value: Equatable>: View {
     private let value: Value?
-    private var view: AnyView?
+    @State
+    private var views: [(UUID, AnyView)] = []
     public init(_ value: Value?) {
         self.value = value
     }
     
-    public func Case<V: View>(_ v: Value?, @ViewBuilder content: @escaping (Value) -> V) -> Switch {
-        guard view == nil else { return self }
-        if v == value {
-            self.view = AnyView(v.map(content))
+    public var body: some View {
+        ForEach(views, id: \.self.0) { v in
+            v.1
         }
-        return self
     }
     
-    public func Else<V: View>(@ViewBuilder content: @escaping () -> V) -> AnyView {
-        if let view = view {
-            return view
-        } else {
-            return AnyView(content())
+    public func Case<V: View>(_ v: Value?, @ViewBuilder content: @escaping (Value) -> V) -> Switch {
+        if v == value {
+            views.append((UUID(), AnyView(v.map(content))))
         }
+        return self
     }
 }

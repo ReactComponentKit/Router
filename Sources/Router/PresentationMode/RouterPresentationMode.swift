@@ -42,12 +42,13 @@ public class RouterPresentationModeValue {
         self.mode = mode
     }
     
-    public func dismiss(animated: Bool = true) {
+    public func dismiss(animated: Bool = true, completion: @escaping () -> Void = { }) {
         switch mode {
         case .sheet, .fullscreen, .overFullscreen, .formSheet, .currentContext, .overCurrentContext:
-            wrappedValue?.dismiss(animated: animated, completion: nil)
+            wrappedValue?.dismiss(animated: animated, completion: completion)
         case .push:
             wrappedValue?.navigationController?.popViewController(animated: animated)
+            completion()
         case .replace:
             // ignore
             break
