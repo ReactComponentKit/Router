@@ -24,11 +24,11 @@ public class Router: ObservableObject {
             return
         }
         
-        let routerPath = RouterPath(path: "\(scheme)://\(host)", view: { routerPathData in
+        let routerPath = RouterPath(path: "\(scheme)://\(host + url.path)", view: { routerPathData in
             content(routerPathData).toAnyView()
         })
 
-        RouterPathManager.shared.set(routerPath: routerPath, forPath: "\(scheme)://\(host)")
+        RouterPathManager.shared.set(routerPath: routerPath, forPath: "\(scheme)://\(host + url.path)")
     }
     
     internal static func router(for name: String) -> Router {
