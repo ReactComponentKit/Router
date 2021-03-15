@@ -33,6 +33,6 @@ internal class RouterPathManager {
         else {
             return nil
         }
-        return routerPathMap["\(scheme)://\(host)"]
+        return routerPathMap["\(scheme)://\(host + url.path)"]
     }
 }
