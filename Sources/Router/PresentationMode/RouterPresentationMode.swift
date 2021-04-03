@@ -23,7 +23,7 @@ public enum RouterPresentationMode {
 }
 
 public class RouterPresentationModeValue {
-    public var wrappedValue: UIViewController!
+    public var wrappedValue: UIViewController?
     internal var mode: RouterPresentationMode    
     public var isPresented: Bool {
         switch mode {
