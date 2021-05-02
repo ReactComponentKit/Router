@@ -241,6 +241,28 @@ public class Router: ObservableObject {
         }
     }
     
+    private func view_with_injection<V: View>(_ path: String, _ mode: RouterPresentationMode, bindings: RouterPathBindingData, userData: RouterPathUserData, configure: (UIViewController) -> Void, injection: (AnyView) -> V) -> AnyView {
+        guard let routerPath = RouterPathManager.shared.routerPath(forPath: path) else { return EmptyView().toAnyView() }
+        var params: [String: String] = [:]
+        if let queryItems = URLComponents(string: path)?.queryItems {
+            var result: [String: String] = [:]
+            queryItems.forEach {
+                if let value = $0.value {
+                    result[$0.name] = value
+                }
+            }
+            params = result
+        }
+        
+        // path의 쿼리를 파싱하여 인자를 인젝션해 주어야 한다.
+        var data = RouterPathData(params: params)
+        data.bindings = bindings
+        data.userData = userData
+        let view = routerPath.view(data)
+        let finalView = injection(view)
+        return finalView.toAnyView()
+    }
+    
     // private route method for supporting binding data and injection environment varianbles and environment objects
     // You should use builder method to passing binding data and environment things
     private func route_with_injection<V: View>(_ path: String, _ mode: RouterPresentationMode, animated: Bool = true, transitionStyle: UIModalTransitionStyle = .coverVertical, bindings: RouterPathBindingData, userData: RouterPathUserData, configure: (UIViewController) -> Void, injection: (AnyView) -> V) {
@@ -284,6 +306,26 @@ public class Router: ObservableObject {
         case .none:
             break
         }
+    }
+    
+    private func view_without_injection(_ path: String, _ mode: RouterPresentationMode, bindings: RouterPathBindingData, userData: RouterPathUserData, configure: (UIViewController) -> Void) -> AnyView {
+        guard let routerPath = RouterPathManager.shared.routerPath(forPath: path) else { return EmptyView().toAnyView() }
+        var params: [String: String] = [:]
+        if let queryItems = URLComponents(string: path)?.queryItems {
+            var result: [String: String] = [:]
+            queryItems.forEach {
+                if let value = $0.value {
+                    result[$0.name] = value
+                }
+            }
+            params = result
+        }
+        
+        // path의 쿼리를 파싱하여 인자를 인젝션해 주어야 한다.
+        var data = RouterPathData(params: params)
+        data.bindings = bindings
+        data.userData = userData
+        return routerPath.view(data)
     }
     
     private func route_without_injection(_ path: String, _ mode: RouterPresentationMode, animated: Bool = true, transitionStyle: UIModalTransitionStyle = .coverVertical,  bindings: RouterPathBindingData, userData: RouterPathUserData, configure: (UIViewController) -> Void) {
@@ -395,6 +437,16 @@ public class Router: ObservableObject {
         
         public func go<V: View>(with injection: (AnyView) -> V = { $0 as! V  }) {
             router?.route_with_injection(self.path, self.mode, animated: self.animated, transitionStyle: self.transitionStyle, bindings: RouterPathBindingData(bindings: self.bindings), userData: RouterPathUserData(userData: self.userData), configure: configure, injection: injection)
+        }
+        
+        public func makeView() -> AnyView {
+            guard let router = router else { return EmptyView().toAnyView() }
+            return router.view_without_injection(self.path, self.mode, bindings: RouterPathBindingData(bindings: self.bindings), userData: RouterPathUserData(userData: self.userData), configure: configure)
+        }
+        
+        public func makeView<V: View>(with injection: (AnyView) -> V = { $0 as! V  }) -> AnyView {
+            guard let router = router else { return EmptyView().toAnyView() }
+            return router.view_with_injection(self.path, self.mode, bindings: RouterPathBindingData(bindings: self.bindings), userData: RouterPathUserData(userData: self.userData), configure: configure, injection: injection)
         }
     }
 }
